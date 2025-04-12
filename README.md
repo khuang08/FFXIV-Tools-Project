@@ -23,7 +23,7 @@ Combat: GLA, PLD, MRD, WAR, DRK, LNC, DRG, ROG, NIN, MNK, ARC, BRD, THM, BLM, AC
 Crafters: CRP, BSM, ARM, GSM, LTW, WVR, ALC, CUL  
 Gatherers: MIN, BTN, FSH
 
-Enter one or more job abbreviations (comma separated) or 'ALL': MIN, BTN
+Enter one or more job abbreviations (comma separated) or 'ALL': **MIN, BTN**
 
 Enter level(s) in one of these formats:
 - Single level: 50
@@ -31,7 +31,7 @@ Enter level(s) in one of these formats:
 - Level ranges: 50-54 (inclusive)
 - Mixed: 50, 52-54, 56, 60-62
 
-Enter level(s) (1-100): 71, 72-74
+Enter level(s) (1-100): **71, 72-74**
 
 Results (23 items found):
 | #      | Name                                               | Level | Rarity   | Job  |
@@ -87,6 +87,7 @@ Normal (White) items:
 1x Bluespirit Pickaxe  
 1x Bluespirit Sledgehammer  
 
+In this example, we entered our classes as **MIN, BTN**, and our levels as **71, 72-74**.
 
 ## Additional Documentation and Acknowledgments
 
