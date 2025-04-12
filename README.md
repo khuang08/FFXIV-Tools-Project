@@ -9,7 +9,7 @@ To use the Python script, you will need to build the setup a virtual environment
 ## Installation
 
 - Download ffxiv_item_search.py and Item.csv to any desired location in the same folder
-- Run the following command "pip install pandas"
+- Run the following command **"pip install pandas"**
 
     Note: The ClassJobCategory.json file is not required for the script,  
     however it contains the IDs for the jobs used in Item.csv
@@ -93,7 +93,7 @@ In this example, we entered our classes as **MIN, BTN**, and our levels as **71,
 
 This project includes the following files sourced from external repositories:
 
-   *Item.csv
+   *Item.csv  
    *ClassJobCategory.json
 
 Original files are from xivapi/ffxiv-datamining, © XIVAPI. These files are used under the assumption that they are licensed under the MIT License, if you are the rights holder and believe this is incorrect, please contact us.
