@@ -14,10 +14,12 @@ JOB_MAPPING = {
     "SCH": 29, "MNK": 21,
     "DRK": 98, "AST": 99,
     
-    # Crafters/gatherers
+    # Crafters
     "CRP": 9, "BSM": 10, "ARM": 11, "GSM": 12, "LTW": 13,
-    "WVR": 14, "ALC": 15, "CUL": 16, "MIN": 17, "BTN": 18,
-    "FSH": 19,
+    "WVR": 14, "ALC": 15, "CUL": 16,
+
+    # Gatherers
+    "MIN": 17, "BTN": 18, "FSH": 19, 
     
     # Special case
     "ALL": 1
@@ -34,16 +36,29 @@ NUM_TO_JOB = {
 
 # Job display lists
 COMBAT_JOBS = [
-    "GLA", "PLD", "MRD", "WAR", "LNC", "DRG",
-    "ARC", "BRD", "CNJ", "WHM", "THM", "BLM",
-    "ACN", "SMN", "SCH", "ROG", "NIN", "MNK",
-    "DRK", "AST"
+    # Tanks
+    "GLA", "PLD", "MRD", "WAR", "DRK",
+    # Melee DPS
+    "LNC", "DRG", "ROG", "NIN", "MNK",
+    # Ranged Physical DPS
+    "ARC", "BRD",
+    # Magical Ranged DPS
+    "THM", "BLM", "ACN", "SMN",
+    # Healers
+    "CNJ", "WHM", "SCH", "AST"
 ]
 
-CRAFTERS_GATHERERS = [
+CRAFTERS = [
+    #Crafters
     "CRP", "BSM", "ARM", "GSM", "LTW", 
-    "WVR", "ALC", "CUL", "MIN", "BTN", "FSH"
+    "WVR", "ALC", "CUL",
 ]
+
+GATHERERS = [
+    #Gatherers
+    "MIN", "BTN", "FSH"
+]
+
 
 # Define which jobs belong to each broader category
 DOW_JOBS = ["GLA", "PLD", "MRD", "WAR", "LNC", "DRG", "ARC", "BRD", "ROG", "NIN", "MNK", "DRK"]
@@ -64,9 +79,10 @@ RARITY_MAP = {
 def get_job_input():
     """Get and validate job abbreviations from user"""
     print("\nAvailable Jobs:")
-    print("Combat:", ", ".join(sorted(COMBAT_JOBS)))
-    print("Crafters/Gatherers:", ", ".join(sorted(CRAFTERS_GATHERERS)))
-    
+    print("Combat:", ", ".join(COMBAT_JOBS))
+    print("Crafters:", ", ".join(CRAFTERS))
+    print("Gatherers:", ", ".join(GATHERERS)) 
+
     while True:
         input_str = input("\nEnter one or more job abbreviations (comma separated) or 'ALL': ").strip().upper()
         if not input_str:
@@ -106,7 +122,6 @@ def get_job_input():
                 
         return unique_job_ids
 
-# [Rest of the functions remain exactly the same...]
 def get_level_input():
     """Get and validate level input from user, supporting multiple values and ranges"""
     print("\nEnter level(s) in one of these formats:")
