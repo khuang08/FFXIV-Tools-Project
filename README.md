@@ -47,7 +47,7 @@ Results (4 items found):
 
 Print in Artisan format? (y/n): y
 
-Normal (White) items:
+Normal (White) items:  
 1x High Durium Hatchet  
 1x High Durium Garden Scythe  
 1x High Durium Pickaxe  
