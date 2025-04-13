@@ -22,7 +22,11 @@ JOB_MAPPING = {
     "MIN": 17, "BTN": 18, "FSH": 19, 
     
     # Special case
-    "ALL": 1
+    "ALL": 0,
+    "CRAFTER": 0,
+    "CRAFTERS": 0,
+    "GATHERER": 0,
+    "GATHERERS": 0
 }
 
 # Create reverse mapping with additional categories
@@ -84,9 +88,9 @@ def get_job_input():
     print("Gatherers:", ", ".join(GATHERERS)) 
 
     while True:
-        input_str = input("\nEnter one or more job abbreviations (comma separated) or 'ALL': ").strip().upper()
+        input_str = input("\nEnter one or more job abbreviations (comma separated), Crafters, or Gatherers:").strip().upper()
         if not input_str:
-            print("Please enter at least one job or 'ALL'")
+            print("Please enter at least one job:")
             continue
             
         jobs = [j.strip() for j in input_str.split(',')]
@@ -100,7 +104,15 @@ def get_job_input():
         # Convert to job IDs and add broader categories if needed
         job_ids = []
         for job in jobs:
-            job_ids.append(JOB_MAPPING[job])
+            if job == "ALL":
+                # Include all numeric job IDs from JOB_MAPPING (excluding 0 and 1)
+                job_ids.extend([v for v in JOB_MAPPING.values() if v not in (0, 1)])
+            elif job in ["CRAFTER", "CRAFTERS"]:
+                job_ids.extend([9, 10, 11, 12, 13, 14, 15, 16])
+            elif job in ["GATHERER", "GATHERERS"]:
+                job_ids.extend([17, 18, 19])
+            else:
+                job_ids.append(JOB_MAPPING[job])
         
         # Check if we need to add broader categories
         if any(job in DOW_JOBS for job in jobs):
