@@ -14,19 +14,21 @@ JOB_MAPPING = {
     "SCH": 29, "MNK": 21,
     "DRK": 98, "AST": 99,
     
-    # Crafters
+    # Crafters/gatherers
     "CRP": 9, "BSM": 10, "ARM": 11, "GSM": 12, "LTW": 13,
-    "WVR": 14, "ALC": 15, "CUL": 16,
-
-    # Gatherers
-    "MIN": 17, "BTN": 18, "FSH": 19, 
+    "WVR": 14, "ALC": 15, "CUL": 16, "MIN": 17, "BTN": 18,
+    "FSH": 19,
     
     # Special case
-    "ALL": 0,
+    "ALL": 1,
     "CRAFTER": 0,
     "CRAFTERS": 0,
     "GATHERER": 0,
-    "GATHERERS": 0
+    "GATHERERS": 0,
+    "DOW": 30,  # Disciple of War
+    "DOM": 31,  # Disciple of Magic
+    "DOH": 33,  # Disciple of the Hand
+    "DOL": 32   # Disciple of the Land
 }
 
 # Create reverse mapping with additional categories
@@ -40,29 +42,16 @@ NUM_TO_JOB = {
 
 # Job display lists
 COMBAT_JOBS = [
-    # Tanks
-    "GLA", "PLD", "MRD", "WAR", "DRK",
-    # Melee DPS
-    "LNC", "DRG", "ROG", "NIN", "MNK",
-    # Ranged Physical DPS
-    "ARC", "BRD",
-    # Magical Ranged DPS
-    "THM", "BLM", "ACN", "SMN",
-    # Healers
-    "CNJ", "WHM", "SCH", "AST"
+    "GLA", "PLD", "MRD", "WAR", "LNC", "DRG",
+    "ARC", "BRD", "CNJ", "WHM", "THM", "BLM",
+    "ACN", "SMN", "SCH", "ROG", "NIN", "MNK",
+    "DRK", "AST"
 ]
 
-CRAFTERS = [
-    #Crafters
+CRAFTERS_GATHERERS = [
     "CRP", "BSM", "ARM", "GSM", "LTW", 
-    "WVR", "ALC", "CUL",
+    "WVR", "ALC", "CUL", "MIN", "BTN", "FSH"
 ]
-
-GATHERERS = [
-    #Gatherers
-    "MIN", "BTN", "FSH"
-]
-
 
 # Define which jobs belong to each broader category
 DOW_JOBS = ["GLA", "PLD", "MRD", "WAR", "LNC", "DRG", "ARC", "BRD", "ROG", "NIN", "MNK", "DRK"]
@@ -83,14 +72,18 @@ RARITY_MAP = {
 def get_job_input():
     """Get and validate job abbreviations from user"""
     print("\nAvailable Jobs:")
-    print("Combat:", ", ".join(COMBAT_JOBS))
-    print("Crafters:", ", ".join(CRAFTERS))
-    print("Gatherers:", ", ".join(GATHERERS)) 
+    print("Combat:", ", ".join(sorted(COMBAT_JOBS)))
+    print("Categories: DoW (Disciples of War), DoM (Disciples of Magic)")
 
+    print("\nCrafters/Gatherers:")
+    print("Available Jobs:", ", ".join(sorted(CRAFTERS_GATHERERS)))
+    print ("\nAvailable Categories: DoH (Disciples of Hand), DoL (Disciples of Land)")
+
+    
     while True:
-        input_str = input("\nEnter one or more job abbreviations (comma separated), Crafters, or Gatherers:").strip().upper()
+        input_str = input("\nEnter one or more job abbreviations (comma separated) or 'ALL': ").strip().upper()
         if not input_str:
-            print("Please enter at least one job:")
+            print("Please enter at least one job or 'ALL'")
             continue
             
         jobs = [j.strip() for j in input_str.split(',')]
@@ -105,24 +98,18 @@ def get_job_input():
         job_ids = []
         for job in jobs:
             if job == "ALL":
-                # Include all numeric job IDs from JOB_MAPPING (excluding 0 and 1)
+                # Include all numeric job IDs (excluding 0/1 placeholders)
                 job_ids.extend([v for v in JOB_MAPPING.values() if v not in (0, 1)])
-            elif job in ["CRAFTER", "CRAFTERS"]:
-                job_ids.extend([9, 10, 11, 12, 13, 14, 15, 16])
-            elif job in ["GATHERER", "GATHERERS"]:
-                job_ids.extend([17, 18, 19])
+            elif job in ["CRAFTER", "CRAFTERS", "DOH"]:
+                job_ids.extend([9, 10, 11, 12, 13, 14, 15, 16])  # DoH = Crafters
+            elif job in ["GATHERER", "GATHERERS", "DOL"]:
+                job_ids.extend([17, 18, 19])  # DoL = Gatherers
+            elif job == "DOW":
+                job_ids.extend([JOB_MAPPING[j] for j in DOW_JOBS])
+            elif job == "DOM":
+                job_ids.extend([JOB_MAPPING[j] for j in DOM_JOBS])
             else:
                 job_ids.append(JOB_MAPPING[job])
-        
-        # Check if we need to add broader categories
-        if any(job in DOW_JOBS for job in jobs):
-            job_ids.append(30)  # Add DoW
-        if any(job in DOM_JOBS for job in jobs):
-            job_ids.append(31)  # Add DoM
-        if any(job in DOH_JOBS for job in jobs):
-            job_ids.append(33)  # Add DoH
-        if any(job in DOL_JOBS for job in jobs):
-            job_ids.append(32)  # Add DoL
             
         # Remove duplicates while preserving order
         seen = set()
@@ -134,6 +121,7 @@ def get_job_input():
                 
         return unique_job_ids
 
+# [Rest of the functions remain exactly the same...]
 def get_level_input():
     """Get and validate level input from user, supporting multiple values and ranges"""
     print("\nEnter level(s) in one of these formats:")
