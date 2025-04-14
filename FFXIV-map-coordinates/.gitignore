@@ -1,3 +1,4 @@
+.gitignore
 venv/
 generated_paths/
 hunt_marks.xlsx
