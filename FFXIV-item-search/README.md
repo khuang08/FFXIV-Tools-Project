@@ -47,14 +47,14 @@ Results (4 items found):
 
 Print in Artisan format? (y/n): y
 
-Normal (White) items:
-1x High Durium Hatchet
-1x High Durium Garden Scythe
-1x High Durium Pickaxe
-1x High Durium Sledgehammer
-Press any key to continue . . .
+Normal (White) items:  
+1x High Durium Hatchet  
+1x High Durium Garden Scythe  
+1x High Durium Pickaxe  
+1x High Durium Sledgehammer  
+Press any key to continue . . .  
 
-In this example, we entered our classes as **MIN, BTN**, and our levels as **71**.
+In this example, we entered our classes as **MIN, BTN**, and our levels as **81**.
 
 ## Additional Documentation and Acknowledgments
 
